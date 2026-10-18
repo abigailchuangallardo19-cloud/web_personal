@@ -47,12 +47,12 @@
   });
 
   const images = [
-    'hero.jpg', 'about.jpg', 'studio.jpg', 'project_portfolio.jpg', 'project_portfolio_1.jpg', 'project_portfolio_2.jpg',
-    'project_ui.jpg', 'project_ui_1.jpg', 'project_ui_2.jpg', 'project_ui_3.jpg', 'project_ui_4.jpg', 'project_ui_5.jpg',
-    'project_ai.jpg', 'project_ai_1.jpg', 'ai_image.jpg', 'class1.jpg', 'class2.jpg', 'project_example.jpg',
-    'fair.jpg', 'fair1.jpg', 'fair2.jpg', 'fair3.jpg', 'fair4.jpg', 'fair5.jpg', 'fair6.jpg',
-    'iestp1.jpg', 'iestp2.jpg', 'iestp3.jpg', 'iestp4.jpg', 'iestp5.jpg', 'iestp6.jpg',
-    'extra1.jpg', 'extra2.jpg', 'extra3.jpg'
+    'images/hero.jpg', 'images/about.jpg', 'images/studio.jpg', 'images/project_portfolio.jpg', 'images/project_portfolio_1.jpg', 'images/project_portfolio_2.jpg',
+    'images/project_ui.jpg', 'images/project_ui_1.jpg', 'images/project_ui_2.jpg', 'images/project_ui_3.jpg', 'images/project_ui_4.jpg', 'images/project_ui_5.jpg',
+    'images/project_ai.jpg', 'images/project_ai_1.jpg', 'images/ai_image.jpg', 'images/class1.jpg', 'images/class2.jpg', 'images/project_example.jpg',
+    'images/fair.jpg', 'images/fair1.jpg', 'images/fair2.jpg', 'images/fair3.jpg', 'images/fair4.jpg', 'images/fair5.jpg', 'images/fair6.jpg',
+    'images/iestp1.jpg', 'images/iestp2.jpg', 'images/iestp3.jpg', 'images/iestp4.jpg', 'images/iestp5.jpg', 'images/iestp6.jpg',
+    'images/extra1.jpg', 'images/extra2.jpg', 'images/extra3.jpg'
   ];
 
   const grid = document.getElementById('galleryGrid');
@@ -90,7 +90,7 @@
   const saveMeta = document.getElementById('saveMeta');
   const cancelMeta = document.getElementById('cancelMeta');
 
-  let imagesData = JSON.parse(localStorage.getItem('taichi_images') || '[]');
+  let imagesData = JSON.parse(localStorage.getItem('taichi_images_v2') || '[]');
   let editingIndex = null;
 
   function renderStored() {
@@ -137,7 +137,7 @@
   }
 
   function saveState() {
-    localStorage.setItem('taichi_images', JSON.stringify(imagesData));
+    localStorage.setItem('taichi_images_v2', JSON.stringify(imagesData));
   }
 
   if (imagesData.length === 0) {
@@ -282,11 +282,11 @@
       });
     }
     const projectCards = [
-      ['project_portfolio.jpg', 'Portafolio personal', 'Una página visualmente alegre con estética retro y pixel art.', 'Web'],
-      ['project_ui.jpg', 'Diseño de interfaces', 'Exploración de colores, botones y composición divertida.', 'UI'],
-      ['project_ai.jpg', 'Creatividad con IA', 'Herramientas inteligentes para idear y mejorar procesos creativos.', 'IA']
+      ['images/project_portfolio.jpg', 'Portafolio personal', 'Una página visualmente alegre con estética retro y pixel art.', 'Web'],
+      ['images/project_ui.jpg', 'Diseño de interfaces', 'Exploración de colores, botones y composición divertida.', 'UI'],
+      ['images/project_ai.jpg', 'Creatividad con IA', 'Herramientas inteligentes para idear y mejorar procesos creativos.', 'IA']
     ];
-    const imageNames = ['hero.jpg','about.jpg','studio.jpg','project_portfolio_1.jpg','project_portfolio_2.jpg','project_ui_1.jpg','project_ui_2.jpg','project_ui_3.jpg','project_ai_1.jpg','ai_image.jpg','class1.jpg','class2.jpg','fair.jpg','fair1.jpg','fair2.jpg','fair3.jpg','iestp1.jpg','iestp2.jpg','extra1.jpg','extra2.jpg'];
+    const imageNames = ['images/hero.jpg','images/about.jpg','images/studio.jpg','images/project_portfolio_1.jpg','images/project_portfolio_2.jpg','images/project_ui_1.jpg','images/project_ui_2.jpg','images/project_ui_3.jpg','images/project_ai_1.jpg','images/ai_image.jpg','images/class1.jpg','images/class2.jpg','images/fair.jpg','images/fair1.jpg','images/fair2.jpg','images/fair3.jpg','images/iestp1.jpg','images/iestp2.jpg','images/extra1.jpg','images/extra2.jpg'];
     const projectList = document.getElementById('projectList');
     const projectSearch = document.getElementById('projectSearch');
     const projectFilter = document.getElementById('projectFilter');
