@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio | TAICHI19C</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123d8f'/%3E%3Ctext x='50%25' y='72%25' font-size='19' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23ffffff'%3ETA%3C/text%3E%3C/svg%3E">
+
+
+</head>
+<body>
+  <header class="topbar">
+      <a class="brand-mark" href="#/inicio">☁️ TAICHI19C</a>
+    <nav class="nav-links">
+      <a href="#/inicio">Inicio</a>
+      <button class="explore-trigger" id="exploreTrigger" type="button" aria-expanded="false">Explorar⌄</button>
+      <a href="#/sobre-mi">Sobre mí</a>
+      <a href="#/contacto">Contacto</a>
+      <button class="topbar-icon" id="topThemeBtn" type="button" aria-label="Cambiar tema">🌙</button>
+      <button class="topbar-icon" id="topSettingsBtn" type="button" aria-label="Abrir configuración">⚙️</button>
+    </nav>
+    <div class="explore-menu" id="exploreMenu" aria-hidden="true">
+      <div class="explore-heading"><span>✨ EXPLORAR MI ESPACIO</span><button id="closeExplore" type="button" aria-label="Cerrar menú">×</button></div>
+      <div class="explore-grid">
+        <a href="#/programacion" data-route-link="programacion"><strong>💻 Programación</strong><small>Laboratorio y experimentos</small></a>
+        <a href="#/arte" data-route-link="arte"><strong>🎨 Arte</strong><small>Exposición creativa</small></a>
+        <a href="#/notas" data-route-link="notas"><strong>📝 Blog / Notas</strong><small>Ideas y aprendizajes</small></a>
+        <a href="#/proyectos" data-route-link="proyectos"><strong>🚀 Proyectos</strong><small>Lo que estoy construyendo</small></a>
+        <a href="#/galeria" data-route-link="galeria"><strong>🖼️ Galería</strong><small>Fotografías y recuerdos</small></a>
+        <a href="#/documentos" data-route-link="documentos"><strong>📁 Documentos</strong><small>Archivos locales</small></a>
+        <a href="#/recursos" data-route-link="recursos"><strong>📚 Recursos</strong><small>Biblioteca personal</small></a>
+        <a href="#/favoritos" data-route-link="favoritos"><strong>⭐ Favoritos</strong><small>Tu colección especial</small></a>
+        <a href="#/afiche-personaje" data-route-link="afiche-personaje"><strong>🎭 Afiche de Personaje</strong><small>Fichas creativas y editoriales</small></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <section class="explore-screen" id="exploreView" aria-labelledby="exploreTitle">
+    <div class="explore-screen-inner">
+      <div class="explore-screen-heading"><span class="eyebrow">✨ CENTRO DE NAVEGACIÓN</span><h1 class="pixel-title" id="exploreTitle">Explorar mi espacio</h1><p>Descubre las áreas que forman parte del universo digital de TAICHI19C.</p></div>
+      <div class="explore-screen-grid">
+        <a class="explore-screen-card card-tech" href="#/programacion"><span class="explore-card-icon">💻</span><strong>Programación</strong><p>Laboratorio, prácticas y experimentos.</p><span>Abrir módulo →</span></a>
+        <a class="explore-screen-card card-art" href="#/arte"><span class="explore-card-icon">🎨</span><strong>Arte</strong><p>Exposición de obras e inspiración.</p><span>Abrir módulo →</span></a>
+        <a class="explore-screen-card card-notes" href="#/notas"><span class="explore-card-icon">📝</span><strong>Blog / Notas</strong><p>Ideas, aprendizajes y procesos.</p><span>Abrir módulo →</span></a>
+        <a class="explore-screen-card card-projects" href="#/proyectos"><span class="explore-card-icon">🚀</span><strong>Proyectos</strong><p>Lo que estoy creando y explorando.</p><span>Abrir módulo →</span></a>
+        <a class="explore-screen-card card-gallery" href="#/galeria"><span class="explore-card-icon">🖼️</span><strong>Galería</strong><p>Fotografías, trabajos y recuerdos.</p><span>Abrir módulo →</span></a>
+        <a class="explore-screen-card card-files" href="#/documentos"><span class="explore-card-icon">📁</span><strong>Documentos</strong><p>Archivos locales organizados.</p><span>Abrir módulo →</span></a>
+        <a class="explore-screen-card card-library" href="#/recursos"><span class="explore-card-icon">📚</span><strong>Recursos</strong><p>Biblioteca de enlaces y referencias.</p><span>Abrir módulo →</span></a>
+        <a class="explore-screen-card card-favorites" href="#/favoritos"><span class="explore-card-icon">⭐</span><strong>Favoritos</strong><p>Tu colección personal.</p><span>Abrir módulo →</span></a>
+        <a class="explore-screen-card card-character" href="#/afiche-personaje"><span class="explore-card-icon">🎭</span><strong>Afiche de Personaje</strong><p>Diseña fichas editoriales únicas.</p><span>Abrir módulo →</span></a>
+      </div>
+    </div>
+  </section>
+  <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true">
+    <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Vista" />
+  </div>
+  <canvas id="particlesCanvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    /* Particles background (simple performant canvas) */
+    (() => {
+      const canvas = document.getElementById('particlesCanvas');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = innerWidth;
+      let h = canvas.height = innerHeight;
+      const particles = [];
+      const N = Math.max(40, Math.floor((w*h)/80000));
+      for (let i=0;i<N;i++) particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.6+0.6, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3, a:Math.random()*0.9+0.1});
+      function resize(){ w=canvas.width=innerWidth; h=canvas.height=innerHeight; }
+      addEventListener('resize', resize);
+      function frame(){ ctx.clearRect(0,0,w,h); for (let p of particles){ p.x += p.vx; p.y += p.vy; if(p.x<0) p.x=w; if(p.x>w) p.x=0; if(p.y<0)p.y=h; if(p.y>h)p.y=0; ctx.beginPath(); ctx.fillStyle = 'rgba(255,255,255,'+ (p.a*0.8) +')'; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); } requestAnimationFrame(frame); }
+      frame();
+    })();
+
+    /* Parallax hero (toggleable) */
+    (function(){
+      const hero = document.querySelector('.hero');
+      if(!hero) return;
+      function parallaxHandler(e){
+        const r = hero.getBoundingClientRect();
+        const cx = (e.clientX - r.left) - r.width/2;
+        const cy = (e.clientY - r.top) - r.height/2;
+        const px = cx / r.width; const py = cy / r.height;
+        document.querySelectorAll('.cat-decoration, .star, .photo-card').forEach((el,i)=>{
+          const depth = (i%3)+1;
+          el.style.transform = `translate(${ -px*8*depth }px, ${ -py*6*depth }px) rotate(${ -px*2 }deg)`;
+        });
+      }
+      function resetParallax(){ document.querySelectorAll('.cat-decoration, .star, .photo-card').forEach(el=>el.style.transform=''); }
+      window._taichi_parallax_enable = function(){ hero.addEventListener('mousemove', parallaxHandler); hero.addEventListener('mouseleave', resetParallax); };
+      window._taichi_parallax_disable = function(){ hero.removeEventListener('mousemove', parallaxHandler); hero.removeEventListener('mouseleave', resetParallax); resetParallax(); };
+      window._taichi_parallax_enable();
+    })();
+
+    /* Tilt effect on project cards (toggleable) */
+    (function(){
+      const cards = Array.from(document.querySelectorAll('.project-card'));
+      function tiltHandler(e){
+        const card = e.currentTarget;
+        const r = card.getBoundingClientRect(); const px = (e.clientX - r.left)/r.width; const py = (e.clientY - r.top)/r.height;
+        const rx = (py - 0.5) * 8; const ry = (px - 0.5) * -12;
+        card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+      }
+      function resetTilt(e){ (e.currentTarget||this).style.transform=''; }
+      window._taichi_tilt_enable = function(){ cards.forEach(card=>{ card.addEventListener('mousemove', tiltHandler); card.addEventListener('mouseleave', resetTilt); }); };
+      window._taichi_tilt_disable = function(){ cards.forEach(card=>{ card.removeEventListener('mousemove', tiltHandler); card.removeEventListener('mouseleave', resetTilt); card.style.transform=''; }); };
+      window._taichi_tilt_enable();
+    })();
+
+    /* Lightbox */
+    (function(){
+      const lb = document.getElementById('lightbox'); const img = document.getElementById('lightboxImg');
+      document.querySelectorAll('.clickable-lightbox').forEach(el=> el.addEventListener('click', ()=>{ img.src = el.dataset.src || el.src; lb.classList.add('show'); lb.setAttribute('aria-hidden','false'); }));
+      lb.addEventListener('click', (e)=>{ if(e.target === lb) { lb.classList.remove('show'); lb.setAttribute('aria-hidden','true'); img.src=''; } });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { lb.classList.remove('show'); lb.setAttribute('aria-hidden','true'); img.src=''; } });
+    })();
+    });  </script>
+
+    <section class="hero" id="home" data-edit-type="hero">
+      <div class="cloud one"></div>
+      <div class="cloud two"></div>
+      <div class="star one">★</div>
+      <div class="star two">★</div>
+      <div class="star three">★</div>
+      <div class="star four">★</div>
+
+      <div class="cat-decoration orange">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="12" y="22" width="40" height="24" fill="#ff8b3d" />
+          <rect x="18" y="18" width="10" height="10" fill="#ff8b3d" />
+          <rect x="36" y="18" width="10" height="10" fill="#ff8b3d" />
+          <rect x="22" y="12" width="8" height="8" fill="#ff8b3d" />
+          <rect x="34" y="12" width="8" height="8" fill="#ff8b3d" />
+          <rect x="26" y="28" width="12" height="10" fill="#fff" />
+          <rect x="20" y="36" width="8" height="8" fill="#fff" />
+          <rect x="36" y="36" width="8" height="8" fill="#fff" />
+          <rect x="22" y="44" width="20" height="8" fill="#ff8b3d" />
+        </svg>
+      </div>
+      <div class="cat-decoration blue">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="12" y="22" width="40" height="24" fill="#74c8ff" />
+          <rect x="18" y="18" width="10" height="10" fill="#74c8ff" />
+          <rect x="36" y="18" width="10" height="10" fill="#74c8ff" />
+          <rect x="22" y="12" width="8" height="8" fill="#74c8ff" />
+          <rect x="34" y="12" width="8" height="8" fill="#74c8ff" />
+          <rect x="30" y="28" width="10" height="10" fill="#fff" />
+          <rect x="20" y="36" width="8" height="8" fill="#fff" />
+          <rect x="36" y="36" width="8" height="8" fill="#fff" />
+          <rect x="22" y="44" width="20" height="8" fill="#74c8ff" />
+        </svg>
+      </div>
+
+      <div class="hero-copy">
+        <div class="eyebrow">✨ Portafolio personal • diseño kawaii</div>
+        <h1 class="pixel-title">Portafolio</h1>
+        <h2 class="pixel-title">Taichi19c</h2>
+        <p>Soy Tais Abigail Chuan Gallardo, una estudiante apasionada por la tecnología, el diseño y el aprendizaje creativo. Aquí comparto mi identidad, mis proyectos y mi energía juvenil con un estilo alegre y pixelado.</p>
+        <div class="btn-row">
+          <a class="btn" href="#/proyectos">Ver proyectos</a>
+          <a class="btn" href="#/explorar">Explorar</a>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Diseño</span>
+          <span class="chip">Programación</span>
+          <span class="chip">IA</span>
+          <span class="chip">Creatividad</span>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="photo-card">
+          <img src="hero.jpg" alt="Foto personal de Tais" class="clickable-lightbox" data-src="hero.jpg" />
+        </div>
+        <input id="characterTemplate" type="hidden" value="dossier">
+      </div>
+    </section>
+
+    <section class="section" id="projects" data-edit-type="projects">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="pixel-title">Proyectos</h2>
+          <span class="chip">🧩 Ideas en progreso</span>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card" data-edit-type="project" data-edit-index="0">
+            <img src="project_portfolio.jpg" alt="Proyecto de portafolio" class="clickable-lightbox" data-src="project_portfolio.jpg" />
+            <span class="badge">Web</span>
+            <h3>Portafolio personal</h3>
+            <p>Una página visualmente alegre con estética retro, pixel art y un toque kawaii.</p>
+          </article>
+          <article class="project-card" data-edit-type="project" data-edit-index="1">
+            <img src="project_ui.jpg" alt="Proyecto de diseño" class="clickable-lightbox" data-src="project_ui.jpg" />
+            <span class="badge">UI</span>
+            <h3>Diseño de interfaces</h3>
+            <p>Exploración de colores vibrantes, botones llamativos y composición divertida.</p>
+          </article>
+          <article class="project-card" data-edit-type="project" data-edit-index="2">
+            <img src="project_ai.jpg" alt="Proyecto con IA" class="clickable-lightbox" data-src="project_ai.jpg" />
+            <span class="badge">IA</span>
+            <h3>Creatividad con IA</h3>
+            <p>Uso de herramientas inteligentes para idear, mejorar y acelerar procesos creativos.</p>
+          </article>
+          <article class="project-card" data-edit-type="project" data-edit-index="3">
+            <img src="project_portfolio_1.jpg" alt="Proyecto extra" class="clickable-lightbox" data-src="project_portfolio_1.jpg" />
+            <span class="badge">UI</span>
+            <h3>Inspiración de interfaz</h3>
+            <p>Ideas y experimentación visual reutilizables.</p>
+          </article>
+          <article class="project-card" data-edit-type="project" data-edit-index="4">
+            <img src="project_ui_1.jpg" alt="Exploración UI" class="clickable-lightbox" data-src="project_ui_1.jpg" />
+            <span class="badge">Web</span>
+            <h3>Mockups rápidos</h3>
+            <p>Bocetos minimalistas para validar ideas rápidas.</p>
+          </article>
+          <article class="project-card" data-edit-type="project" data-edit-index="5">
+            <img src="project_example.jpg" alt="Ejemplo práctico" class="clickable-lightbox" data-src="project_example.jpg" />
+            <span class="badge">Web</span>
+            <h3>Componentes reutilizables</h3>
+            <p>Pequeños módulos pensados para ganar tiempo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" data-edit-type="about">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="pixel-title">Sobre mí</h2>
+          <span class="chip">💖 Creativa y curiosa</span>
+        </div>
+        <div class="about-grid">
+          <div class="card">
+            <p>Disfruto aprender, crear y compartir ideas con alegría. Me interesa la programación, el diseño y la tecnología como herramientas para expresar personalidad y resolver problemas de forma original.</p>
+            <br />
+            <ul>
+              <li>Me gusta trabajar con creatividad y detalle.</li>
+              <li>Estoy en constante aprendizaje y mejora.</li>
+              <li>Busco combinar lo visual con lo funcional.</li>
+            </ul>
+          </div>
+          <div class="card illustration-card">
+            <img src="about.jpg" alt="Foto de la autora" class="clickable-lightbox" data-src="about.jpg" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" data-edit-type="contact">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="pixel-title">Redes y contacto</h2>
+          <span class="chip">📬 Siempre abierta a conectar</span>
+        </div>
+        <div class="contact-grid">
+          <a class="social-card" id="linkInstagram" href="#">
+            <strong>Instagram</strong>
+            <span>@taichi19c</span>
+          </a>
+          <a class="social-card" id="linkGitHub" href="#">
+            <strong>GitHub</strong>
+            <span>Mis proyectos</span>
+          </a>
+          <a class="social-card" id="linkEmail" href="mailto:taichi19c@example.com">
+            <strong>Correo</strong>
+            <span>taichi19c@example.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <div id="scanlines" class="scanlines"></div>
+
+    <div class="control-toggle" id="controlToggle" title="Opciones">⚙️</div>
+    <div class="control-panel" id="controlPanel" aria-hidden="true">
+      <h4>Opciones de visual</h4>
+      <div class="control-row"><span>Partículas</span><label><input type="checkbox" id="optParticles" checked></label></div>
+      <div class="control-row"><span>Parallax</span><label><input type="checkbox" id="optParallax" checked></label></div>
+      <div class="control-row"><span>Tilt tarjetas</span><label><input type="checkbox" id="optTilt" checked></label></div>
+      <div class="control-row"><span>Scanlines</span><label><input type="checkbox" id="optScanlines"></label></div>
+      <div class="control-row"><span>Neón</span><label><input type="checkbox" id="optNeon" checked></label></div>
+      <div style="text-align:right;margin-top:8px;"><button id="closePanel" style="padding:6px 8px;border-radius:6px;border:2px solid var(--ink);background:var(--white)">Cerrar</button></div>
+    </div>
+
+    <div class="control-panel" id="profileEditor" style="display:none;">
+      <h4>Editar perfil</h4>
+      <div class="row"><label>Nombre <input id="profileName" placeholder="Tu nombre"/></label></div>
+      <div class="row"><label>Bio <textarea id="profileBio" rows="3" placeholder="Una frase sobre ti"></textarea></label></div>
+      <div class="row"><label>Instagram <input id="profileInsta" placeholder="@usuario"/></label></div>
+      <div class="row"><label>GitHub <input id="profileGit" placeholder="github.com/usuario"/></label></div>
+      <div class="row"><label>Email <input id="profileEmail" placeholder="correo@ejemplo"/></label></div>
+      <div style="text-align:right;margin-top:8px;"><button id="saveProfile" style="padding:6px 8px;border-radius:6px;border:2px solid var(--ink);background:var(--blue);color:#fff">Guardar</button> <button id="cancelProfile" style="padding:6px 8px;border-radius:6px;border:2px solid var(--ink);background:var(--white);">Cerrar</button></div>
+    </div>
+    <div class="edit-modal" id="editModal">
+      <div class="edit-modal-card" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+        <h3 id="editModalTitle">Editar contenido</h3>
+        <div id="editFields"></div>
+        <div class="edit-action-row">
+          <button id="saveEdit">Guardar</button>
+          <button id="cancelEdit" class="cancel">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="gallerySection">
+      <div class="section-card">
+        <h2>Galería</h2>
+        <p>Todas tus imágenes disponibles para vista rápida y lightbox.</p>
+        <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <label style="background:var(--white);border:3px solid var(--ink);padding:10px;border-radius:12px;cursor:pointer">Agregar imágenes <input id="fileInput" type="file" accept="image/*" multiple style="display:none" /></label>
+          <button id="clearGallery" style="padding:8px 10px;border:3px solid var(--ink);background:var(--yellow);border-radius:10px;font-weight:700;">Limpiar galería</button>
+        </div>
+        <div id="galleryGrid"></div>
+        <div id="metaEditor" style="display:none;margin-top:12px;background:var(--white);border:3px solid var(--ink);padding:10px;border-radius:10px;">
+          <h4 style="margin:0 0 8px 0;">Editar imagen</h4>
+          <input id="metaTitle" placeholder="Título" style="width:100%;padding:8px;margin-bottom:8px;border:2px solid #ddd;border-radius:6px;" />
+          <textarea id="metaDesc" placeholder="Descripción" style="width:100%;padding:8px;height:64px;border:2px solid #ddd;border-radius:6px;"></textarea>
+          <div style="text-align:right;margin-top:8px;"><button id="saveMeta" style="padding:6px 10px;border:3px solid var(--ink);border-radius:8px;background:var(--blue);">Guardar</button> <button id="cancelMeta" style="padding:6px 10px;border:3px solid var(--ink);border-radius:8px;background:var(--white);">Cancelar</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workspace" aria-labelledby="workspaceTitle">
+      <div class="section-card platform-shell">
+        <div class="platform-heading">
+          <div><button class="platform-back" id="routeBack" type="button">← Volver</button><span class="eyebrow">☁️ Tu espacio digital personal</span><h2 class="pixel-title" id="workspaceTitle">Centro TAICHI19C</h2><p>Organiza notas, ideas, código, recursos y archivos desde un solo lugar.</p></div>
+          <div class="platform-actions"><button class="platform-btn platform-btn-light" id="profileToggle" type="button">✏️ Perfil</button><button class="platform-btn platform-btn-primary" id="openNoteBtn" type="button">＋ Nueva nota</button><button class="platform-icon-btn" id="themeBtn" type="button" aria-label="Cambiar tema" title="Cambiar tema">🌙</button></div>
+        </div>
+        <div class="platform-toolbar"><label class="global-search"><span aria-hidden="true">⌕</span><input id="globalSearch" type="search" placeholder="Buscar en Taichi19c..." aria-label="Buscar en Taichi19c" /></label><button class="platform-btn platform-btn-light" id="exportBtn" type="button">📤 Exportar</button><label class="platform-btn platform-btn-light import-label">📥 Importar <input id="importBtn" type="file" accept="application/json" /></label></div>
+        <div class="platform-layout">
+          <aside class="platform-sidebar" aria-label="Módulos personales"><button class="platform-nav active" data-view="dashboard" type="button">⌂ Dashboard</button><button class="platform-nav" data-view="notes" type="button">📝 Mis notas</button><button class="platform-nav" data-view="lab" type="button">💻 Laboratorio</button><button class="platform-nav" data-view="library" type="button">📚 Recursos</button><button class="platform-nav" data-view="files" type="button">📁 Documentos</button><button class="platform-nav" data-view="favorites" type="button">⭐ Favoritos</button><button class="platform-nav" data-view="trash" type="button">🗑️ Papelera</button><button class="platform-nav" data-view="settings" type="button">⚙ Configuración</button></aside>
+          <div class="platform-content">
+            <div class="workspace-view active" data-view-panel="dashboard"><div class="view-heading"><div><span class="view-kicker">VISIÓN GENERAL</span><h3>Tu universo creativo</h3></div><span class="live-status">● Guardado local</span></div><div class="stats-grid" id="statsGrid"></div><div class="dashboard-grid"><article class="workspace-card spotlight-card"><span class="card-icon">✨</span><h4>Construye a tu ritmo</h4><p>Este espacio crece contigo. Guarda una idea, documenta tu proceso o convierte una nota en el siguiente proyecto.</p><button class="text-action" data-go-view="notes" type="button">Abrir mis notas →</button></article><article class="workspace-card"><h4>Accesos rápidos</h4><div class="quick-actions"><button data-go-view="lab" type="button">💻 Añadir código</button><button data-go-view="library" type="button">🔗 Guardar recurso</button><button data-go-view="files" type="button">📎 Importar archivo</button></div></article></div></div>
+            <div class="workspace-view" data-view-panel="notes"><div class="view-heading"><div><span class="view-kicker">BLOC DE NOTAS</span><h3>Ideas y aprendizajes</h3></div><button class="platform-btn platform-btn-primary" id="newNoteInline" type="button">＋ Crear nota</button></div><div class="filter-row"><input id="noteSearch" type="search" placeholder="Buscar notas..." aria-label="Buscar notas" /><select id="noteCategory" aria-label="Filtrar notas"><option value="all">Todas las categorías</option><option>Ideas</option><option>Programación</option><option>Universidad</option><option>Diseño</option><option>Arte</option><option>Proyectos</option><option>Personal</option><option>Pendientes</option></select></div><div class="notes-layout"><div id="notesList" class="item-list"></div><form id="noteForm" class="workspace-card editor-form"><div class="form-title"><span>✏️</span><h4 id="noteFormTitle">Nueva nota</h4></div><label>Título<input id="noteTitle" required maxlength="100" /></label><label>Categoría<select id="noteCategoryInput"><option>Ideas</option><option>Programación</option><option>Universidad</option><option>Diseño</option><option>Arte</option><option>Proyectos</option><option>Personal</option><option>Pendientes</option></select></label><label>Contenido<textarea id="noteContent" required rows="8" placeholder="Escribe algo que quieras guardar..."></textarea></label><label>Etiquetas<input id="noteTags" placeholder="#ideas, #aprendizaje" /></label><div class="form-actions"><button class="platform-btn platform-btn-primary" type="submit">Guardar nota</button><button class="platform-btn platform-btn-light" id="cancelNote" type="button">Cancelar</button></div><small id="autosaveStatus">Guardado automáticamente al guardar</small></form></div></div>
+            <div class="workspace-view" data-view-panel="lab"><div class="view-heading"><div><span class="view-kicker">💻 LABORATORIO DE PROGRAMACIÓN</span><h3>Trabajos de código</h3></div><button class="platform-btn platform-btn-primary" id="newLabBtn" type="button">＋ Añadir proyecto</button></div><div id="labList" class="resource-grid"></div><form id="labForm" class="workspace-card compact-form hidden"><label>Nombre<input id="labTitle" required /></label><label>Descripción<textarea id="labDescription" rows="3"></textarea></label><div class="form-columns"><label>Lenguaje<input id="labLanguage" placeholder="HTML, CSS, JavaScript..." /></label><label>Estado<select id="labStatus"><option>Idea</option><option>En desarrollo</option><option>Terminado</option><option>Archivado</option></select></label></div><label>Enlace<input id="labLink" type="url" placeholder="https://..." /></label><div class="form-actions"><button class="platform-btn platform-btn-primary" type="submit">Guardar proyecto</button><button class="platform-btn platform-btn-light" id="cancelLab" type="button">Cancelar</button></div></form></div>
+            <div class="workspace-view" data-view-panel="library"><div class="view-heading"><div><span class="view-kicker">📚 BIBLIOTECA PERSONAL</span><h3>Recursos guardados</h3></div><button class="platform-btn platform-btn-primary" id="newResourceBtn" type="button">＋ Guardar recurso</button></div><div id="resourceList" class="resource-grid"></div><form id="resourceForm" class="workspace-card compact-form hidden"><label>Título<input id="resourceTitle" required /></label><label>Descripción<textarea id="resourceDescription" rows="3"></textarea></label><div class="form-columns"><label>Tipo<select id="resourceType"><option>Documentación</option><option>Tutorial</option><option>Video</option><option>Curso</option><option>Herramienta</option><option>Inspiración</option></select></label><label>Categoría<input id="resourceCategory" placeholder="Programación, Diseño, IA..." /></label></div><label>URL<input id="resourceUrl" type="url" required placeholder="https://..." /></label><div class="form-actions"><button class="platform-btn platform-btn-primary" type="submit">Guardar recurso</button><button class="platform-btn platform-btn-light" id="cancelResource" type="button">Cancelar</button></div></form></div>
+            <div class="workspace-view" data-view-panel="files"><div class="view-heading"><div><span class="view-kicker">📁 GESTOR DE DOCUMENTOS</span><h3>Archivos locales</h3></div><label class="platform-btn platform-btn-primary">＋ Importar archivos<input id="documentInput" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.gif,.pdf,.docx,.txt,.json" /></label></div><p class="muted-copy">Los archivos se procesan en tu navegador y no se suben a servidores externos.</p><div id="documentList" class="resource-grid"></div></div>
+            <div class="workspace-view" data-view-panel="favorites"><div class="view-heading"><div><span class="view-kicker">⭐ COLECCIÓN PERSONAL</span><h3>Mis favoritos</h3></div></div><div id="favoriteList" class="resource-grid"></div></div>
+            <div class="workspace-view" data-view-panel="trash"><div class="view-heading"><div><span class="view-kicker">🗑️ RECUPERACIÓN</span><h3>Papelera</h3></div><button class="platform-btn platform-btn-danger" id="emptyTrash" type="button">Vaciar papelera</button></div><div id="trashList" class="resource-grid"></div></div>
+            <div class="workspace-view" data-view-panel="settings"><div class="view-heading"><div><span class="view-kicker">⚙ CONFIGURACIÓN</span><h3>Preferencias</h3></div></div><div class="settings-grid workspace-card"><label class="setting-row"><span><strong>Modo oscuro</strong><small>Cielo nocturno y estrellas luminosas</small></span><input id="darkModeToggle" type="checkbox" /></label><label class="setting-row"><span><strong>Animaciones suaves</strong><small>Respeta también la preferencia del sistema</small></span><input id="motionToggle" type="checkbox" checked /></label><button class="platform-btn platform-btn-light" id="clearPlatformData" type="button">Restablecer datos de la plataforma</button></div></div>
+            <div class="workspace-view" data-view-panel="arte"><div class="view-heading"><div><span class="view-kicker">🎨 EXPOSICIÓN DIGITAL</span><h3>Galería de arte</h3><p class="muted-copy">Una colección visual construida con tus imágenes existentes.</p></div><button class="platform-btn platform-btn-primary" id="artFilterBtn" type="button">Todos ▾</button></div><div id="artList" class="art-masonry"></div></div>
+            <div class="workspace-view" data-view-panel="proyectos"><div class="view-heading"><div><span class="view-kicker">🚀 PORTAFOLIO VIVO</span><h3>Mis proyectos</h3><p class="muted-copy">Tus trabajos actuales, ahora como una vista independiente.</p></div><button class="platform-btn platform-btn-primary" data-go-view="lab" type="button">＋ Nuevo proyecto</button></div><div class="filter-row"><input id="projectSearch" type="search" placeholder="Buscar proyectos..." aria-label="Buscar proyectos" /><select id="projectFilter" aria-label="Filtrar proyectos"><option value="all">Todos</option><option>Web</option><option>UI</option><option>IA</option></select></div><div id="projectList" class="project-module-grid"></div></div>
+            <div class="workspace-view" data-view-panel="galeria"><div class="view-heading"><div><span class="view-kicker">🖼️ RECUERDOS Y CREACIÓN</span><h3>Mi galería</h3><p class="muted-copy">Explora tus fotografías, trabajos y momentos en una composición visual.</p></div><button class="platform-btn platform-btn-primary" data-go-view="files" type="button">＋ Importar imagen</button></div><div id="galleryModuleGrid" class="gallery-module-grid"></div></div>
+            <div class="workspace-view" data-view-panel="afiche-personaje"><div class="view-heading"><div><span class="view-kicker">🎭 DOSSIER CREATIVO</span><h3>Afiches de personajes</h3><p class="muted-copy">Crea, diseña y organiza tus personajes.</p></div><button class="platform-btn platform-btn-primary" id="newCharacterBtn" type="button">＋ Crear nuevo afiche</button></div><div id="characterLibrary" class="character-library"></div><div id="templateChooser" class="template-chooser hidden"><div class="template-heading"><div><span class="view-kicker">NUEVO AFICHE</span><h3>Elige una estructura visual</h3></div><button class="platform-btn platform-btn-light" id="cancelTemplate" type="button">Cancelar</button></div><div class="template-grid"><button data-template="dossier" type="button"><span>📋</span><strong>Dossier</strong><small>Estructurado y completo</small></button><button data-template="editorial" type="button"><span>📰</span><strong>Editorial</strong><small>Fotografía y titulares</small></button><button data-template="kawaii" type="button"><span>🎀</span><strong>Kawaii</strong><small>Pastel y stickers</small></button><button data-template="gaming" type="button"><span>🎮</span><strong>Gaming</strong><small>Retro y tecnológico</small></button><button data-template="poster" type="button"><span>🖼️</span><strong>Poster</strong><small>Libre y protagonista</small></button></div></div><div id="characterEditorLayout" class="character-editor-layout hidden"><form id="characterForm" class="workspace-card character-editor"><div class="editor-panel-heading"><span class="view-kicker">✦ HERRAMIENTAS</span><h4>Editar personaje</h4></div><div class="character-form-grid"><label>Nombre<input id="characterName" /></label><label>Apodo<input id="characterNickname" /></label><label>Edad<input id="characterAge" /></label><label>Fecha de nacimiento<input id="characterBirthdate" type="date" /></label><label>Signo zodiacal<input id="characterZodiac" /></label><label>Género<input id="characterGender" /></label><label>Pronombres<input id="characterPronouns" /></label><label>Nacionalidad<input id="characterNationality" /></label><label>Especie<input id="characterSpecies" /></label><label>Ocupación<input id="characterOccupation" /></label><label>Clase / rol<input id="characterRole" /></label><label>Organización<input id="characterOrganization" /></label><label>Personalidad<input id="characterPersonality" /></label><label>Tipo / arquetipo<input id="characterArchetype" /></label><label>Altura<input id="characterHeight" /></label><label>Peso<input id="characterWeight" /></label><label>Complexión<input id="characterBuild" /></label><label>Color de piel<input id="characterSkin" /></label><label>Color de cabello<input id="characterHair" /></label><label>Color de ojos<input id="characterEyes" /></label><label>Estilo de cabello<input id="characterHairStyle" /></label><label>Vestimenta<input id="characterOutfit" /></label><label>Accesorios<input id="characterAccessories" /></label><label>Rasgos distintivos<input id="characterSpecial" /></label><label>Color de fondo<input id="characterBg" type="color" value="#dff3ff" /></label><label>Color de títulos<input id="characterAccent" type="color" value="#1768b4" /></label><label>Plantilla<select id="characterTheme"><option value="sky">☁️ Cielo</option><option value="space">🌌 Espacial</option><option value="kawaii">🌸 Kawaii</option><option value="night">🌙 Nocturno</option><option value="tech">💻 Tecnología</option><option value="minimal">🤍 Minimalista</option><option value="colorful">🌈 Colorido</option></select></label></div><label>Descripción<textarea id="characterDescription" rows="3"></textarea></label><label>Historia / Background<textarea id="characterStory" rows="4"></textarea></label><div class="character-columns"><label>Fortalezas / virtudes<textarea id="characterStrengths" rows="3"></textarea></label><label>Debilidades / defectos<textarea id="characterWeaknesses" rows="3"></textarea></label><label>Objetivos y motivaciones<textarea id="characterGoals" rows="3"></textarea></label><label>Miedos, hábitos e intereses<textarea id="characterInterests" rows="3"></textarea></label><label>Relaciones<textarea id="characterRelations" rows="3"></textarea></label><label>Frases, música y referencias<textarea id="characterExtras" rows="3"></textarea></label></div><label class="character-upload">🖼️ Agregar imagen<input id="characterImage" type="file" accept="image/*" /></label><div id="characterDropzone" class="character-dropzone">Arrastra aquí la imagen principal del personaje</div><div class="form-actions"><button class="platform-btn platform-btn-primary" type="submit">💾 Guardar personaje</button><button class="platform-btn platform-btn-light" id="cancelCharacter" type="button">Cancelar</button><button class="platform-btn platform-btn-light" id="downloadCharacter" type="button">🖼️ Exportar PNG</button></div></form><div class="character-preview-panel"><div class="preview-toolbar"><span class="view-kicker">VISTA PREVIA EN TIEMPO REAL</span><button class="platform-btn platform-btn-light" id="previewModeBtn" type="button">👁️ Presentación</button></div><div id="characterPoster" class="character-poster"></div></div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="footerYear">2026</span> TAICHI19C · Hecho con ☁️ y creatividad</p>
+    <nav class="footer-links">
+      <a href="#/inicio">Inicio</a>
+      <a href="#/sobre-mi">Sobre mí</a>
+      <a href="#/proyectos">Proyectos</a>
+      <a href="#/contacto">Contacto</a>
+    </nav>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+
