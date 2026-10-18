@@ -351,13 +351,37 @@
   function renderCharacter(previewCharacter = state.character) {
     const poster = document.getElementById('characterPoster');
     const character = previewCharacter;
-    if (!character) { poster.innerHTML = '<div class="empty-state"><strong>Tu primer afiche empieza aquí</strong><br>Agrega nombre, historia, colores e imagen para crear una ficha editorial única.</div>'; return; }
-    poster.className = `character-poster has-poster template-${character.theme || 'dossier'}${character.backgroundType === 'pattern' ? ' is-pattern' : ''}`;
+    if (!character) { poster.className = 'character-poster'; poster.innerHTML = '<div class="empty-state ficha-empty"><strong>Tu primera ficha empieza aquí</strong><br><span>Agrega nombre, historia, colores, fotos e imagen para crear una ficha de personaje única.</span></div>'; return; }
+    const shape = character.imageShape || 'portrait';
+    poster.className = 'character-poster has-poster ficha template-' + (character.theme || 'dossier') + (character.backgroundType === 'pattern' ? ' is-pattern' : '');
     poster.style.setProperty('--poster-bg', character.background || '#dff3ff');
     poster.style.setProperty('--poster-secondary', character.secondary || '#ffffff');
     poster.style.setProperty('--poster-accent', character.accent || '#1768b4');
     poster.style.setProperty('--poster-text', character.text || '#18325f');
-    poster.innerHTML = `<div class="character-poster-header"><span class="view-kicker">${escapeText(character.role || 'FICHA CREATIVA')}</span><h2>${escapeText(character.name || 'Personaje sin nombre')}</h2><p>${escapeText(character.nickname || 'Un nuevo universo por descubrir')}</p></div><div class="character-poster-main"><div class="character-portrait">${character.image ? `<img src="${character.image}" alt="Imagen de ${escapeText(character.name)}">` : '<div class="character-placeholder">🎭<br><small>Agrega una imagen</small></div>'}</div><div class="character-info-grid">${[['Edad',character.age],['Género',character.gender],['Ocupación',character.occupation],['Rol',character.role],['Personalidad',character.personality],['Vestimenta',character.outfit],['Cabello',character.hair],['Ojos',character.eyes]].map(([label,value]) => `<div class="character-info-item"><small>${label}</small><strong>${escapeText(value || 'Por definir')}</strong></div>`).join('')}</div></div><div class="character-story-grid"><article class="character-story-card"><h4>Descripción</h4><p>${escapeText(character.description || 'Escribe una descripción para presentar a tu personaje.')}</p></article><article class="character-story-card"><h4>Historia</h4><p>${escapeText(character.story || 'Todavía no hay una historia escrita.')}</p></article><article class="character-story-card"><h4>Fortalezas y objetivos</h4><p>${escapeText([character.strengths, character.goals].filter(Boolean).join('\n') || 'Añade sus fortalezas y motivaciones.')}</p></article><article class="character-story-card"><h4>Relaciones e intereses</h4><p>${escapeText([character.relations, character.interests, character.extras].filter(Boolean).join('\n') || 'Añade relaciones, gustos o referencias.')}</p></article></div>`;
+    const stickers = Array.isArray(character.stickers) ? character.stickers : [];
+    const gallery = Array.isArray(character.gallery) ? character.gallery : [];
+    const stats = [['Fuerza', character.statStrength], ['Inteligencia', character.statIntelligence], ['Velocidad', character.statSpeed], ['Carisma', character.statCharisma]].filter(function (p) { return p[1] !== undefined && p[1] !== null && p[1] !== ''; });
+    const infoPairs = [['Edad', character.age], ['Género', character.gender], ['Nacionalidad', character.nationality], ['Ocupación', character.occupation], ['Rol', character.role], ['Personalidad', character.personality], ['Cabello', character.hair], ['Ojos', character.eyes], ['Vestimenta', character.outfit], ['Accesorios', character.accessories]];
+    const stickerHtml = stickers.length ? '<div class="ficha-stickers">' + stickers.map(function (st) { const d = typeof st === 'string' ? { s: st, x: 12, y: 12 } : st; return '<span style="left:' + (d.x ?? 12) + '%;top:' + (d.y ?? 12) + '%">' + escapeText(d.s || '') + '</span>'; }).join('') + '</div>' : '';
+    poster.innerHTML = stickerHtml +
+      '<header class="ficha-header"><span class="ficha-kicker">' + escapeText(character.role || 'FICHA DE PERSONAJE') + '</span><h2 class="ficha-name">' + escapeText(character.name || 'Personaje sin nombre') + '</h2>' + (character.nickname ? '<p class="ficha-nickname">“' + escapeText(character.nickname) + '”</p>' : '') + '</header>' +
+      '<div class="ficha-body">' +
+        '<aside class="ficha-portrait-col"><div class="ficha-portrait shape-' + shape + '">' + (character.image ? '<img src="' + character.image + '" alt="Imagen de ' + escapeText(character.name || 'personaje') + '">' : '<div class="ficha-placeholder">🎭<small>Agrega una imagen</small></div>') + '</div>' +
+        (stats.length ? '<div class="ficha-stats">' + stats.map(function (p) { const v = Math.max(0, Math.min(100, Number(p[1]) || 0)); return '<div class="ficha-stat"><span class="ficha-stat-label">' + escapeText(p[0]) + '</span><span class="ficha-stat-bar"><i style="width:' + v + '%"></i></span><span class="ficha-stat-value">' + v + '</span></div>'; }).join('') + '</div>' : '') +
+        '</aside>' +
+        '<div class="ficha-main-col">' +
+          '<div class="ficha-info-grid">' + infoPairs.map(function (p) { return '<div class="ficha-info"><small>' + escapeText(p[0]) + '</small><strong>' + escapeText(p[1] || '—') + '</strong></div>'; }).join('') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ficha-details">' +
+        (character.description ? '<section class="ficha-detail"><h4>Descripción</h4><p>' + escapeText(character.description) + '</p></section>' : '') +
+        (character.story ? '<section class="ficha-detail"><h4>Historia</h4><p>' + escapeText(character.story) + '</p></section>' : '') +
+        (character.strengths ? '<section class="ficha-detail"><h4>Fortalezas</h4><p>' + escapeText(character.strengths) + '</p></section>' : '') +
+        (character.weaknesses ? '<section class="ficha-detail"><h4>Debilidades</h4><p>' + escapeText(character.weaknesses) + '</p></section>' : '') +
+        (character.goals ? '<section class="ficha-detail"><h4>Objetivos</h4><p>' + escapeText(character.goals) + '</p></section>' : '') +
+        (character.relations ? '<section class="ficha-detail"><h4>Relaciones</h4><p>' + escapeText(character.relations) + '</p></section>' : '') +
+      '</div>' +
+      (gallery.length ? '<section class="ficha-gallery"><h4>Galería</h4><div class="ficha-gallery-grid">' + gallery.map(function (src) { return '<img src="' + src + '" alt="Galería de ' + escapeText(character.name || 'personaje') + '">'; }).join('') + '</div></section>' : '');
   }
 
   let decoratingCharacterPoster = false;
@@ -774,4 +798,157 @@
   editModal.addEventListener('click', (event) => {
     if (event.target === editModal) closeEditModal();
   });
+
+    /* ===== Ficha de personaje: galería, stickers, visor y exportación ===== */
+  function readFileAsDataURL(file) { return new Promise(function (resolve) { const r = new FileReader(); r.onload = function () { resolve(r.result); }; r.readAsDataURL(file); }); }
+  function commitCharacterDraft(extra) {
+    const draft = Object.assign({}, readCharacterDraft(), extra || {});
+    const base = state.characters.find(function (i) { return i.id === editingCharacterId; }) || {};
+    const next = Object.assign({}, base, draft, { id: editingCharacterId || (state.character && state.character.id) || id(), template: document.getElementById('characterTheme').value });
+    if (editingCharacterId) state.characters = state.characters.map(function (i) { return i.id === editingCharacterId ? next : i; });
+    state.character = next;
+    persist();
+    renderCharacter(next);
+    renderStickerActive();
+    renderGalleryThumbs();
+  }
+  function renderGalleryThumbs() {
+    const box = document.getElementById('characterGalleryThumbs');
+    if (!box) return;
+    const gallery = (state.character && state.character.gallery) || [];
+    box.innerHTML = gallery.length ? gallery.map(function (src, i) { return '<div class="character-gallery-thumb"><img src="' + src + '" alt="Foto ' + (i + 1) + '"><button type="button" data-remove-gallery="' + i + '" title="Quitar">✕</button></div>'; }).join('') : '<small style="color:var(--platform-muted)">Sin fotos extra. Puedes agregar varias.</small>';
+  }
+  function renderStickerActive() {
+    const box = document.getElementById('stickerActive');
+    if (!box) return;
+    const list = (state.character && state.character.stickers) || [];
+    box.innerHTML = list.length ? list.map(function (st, i) { const d = typeof st === 'string' ? { s: st } : st; return '<button type="button" data-remove-sticker="' + i + '" title="Quitar sticker">' + escapeText(d.s || '') + '</button>'; }).join('') : '<small style="color:var(--platform-muted)">Toca un sticker para ponerlo en la ficha. Toca uno puesto para quitarlo.</small>';
+  }
+  const STICKER_SET = ['🎀', '⭐', '💖', '✨', '☁️', '🌙', '🌸', '🐱', '🎧', '🎮', '💻', '🎨', '🍓', '🌈', '💫', '🦋'];
+  const stickerPaletteEl = document.getElementById('stickerPalette');
+  if (stickerPaletteEl) {
+    stickerPaletteEl.innerHTML = STICKER_SET.map(function (s) { return '<button type="button" data-sticker="' + s + '">' + s + '</button>'; }).join('');
+    stickerPaletteEl.addEventListener('click', function (event) {
+      const btn = event.target.closest('[data-sticker]');
+      if (!btn) return;
+      const cur = (state.character && state.character.stickers) || [];
+      const next = cur.slice();
+      next.push({ s: btn.dataset.sticker, x: 8 + Math.round(Math.random() * 84), y: 8 + Math.round(Math.random() * 84) });
+      commitCharacterDraft({ stickers: next });
+      toast('Sticker agregado');
+    });
+  }
+  document.addEventListener('click', function (event) {
+    const rmSticker = event.target.closest('[data-remove-sticker]');
+    if (rmSticker) { const i = Number(rmSticker.dataset.removeSticker); const cur = (state.character && state.character.stickers) || []; commitCharacterDraft({ stickers: cur.filter(function (_, idx) { return idx !== i; }) }); return; }
+    const rmGal = event.target.closest('[data-remove-gallery]');
+    if (rmGal) { const i = Number(rmGal.dataset.removeGallery); const cur = (state.character && state.character.gallery) || []; commitCharacterDraft({ gallery: cur.filter(function (_, idx) { return idx !== i; }) }); return; }
+  });
+  const galleryInput = document.getElementById('characterGalleryInput');
+  if (galleryInput) galleryInput.addEventListener('change', function (event) {
+    const files = Array.from(event.target.files || []);
+    if (!files.length) return;
+    Promise.all(files.map(readFileAsDataURL)).then(function (results) {
+      const cur = (state.character && state.character.gallery) || [];
+      commitCharacterDraft({ gallery: cur.concat(results).slice(0, 12) });
+      toast('Fotos agregadas a la galería');
+    });
+    event.target.value = '';
+  });
+
+  /* Visor de ficha completa */
+  const fichaViewer = document.getElementById('fichaViewer');
+  function openFichaViewer(character) {
+    if (!character) { toast('Crea o guarda un personaje primero'); return; }
+    const clone = document.getElementById('characterPoster').cloneNode(true);
+    clone.id = 'fichaViewerPoster';
+    fichaViewer.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = 'ficha-viewer-inner';
+    const bar = document.createElement('div');
+    bar.className = 'ficha-viewer-bar';
+    bar.innerHTML = '<strong>Ficha: ' + escapeText(character.name || 'Personaje') + '</strong>';
+    const close = document.createElement('button');
+    close.className = 'platform-btn platform-btn-light';
+    close.type = 'button'; close.textContent = '✕ Cerrar';
+    close.addEventListener('click', function () { fichaViewer.classList.remove('show'); fichaViewer.setAttribute('aria-hidden', 'true'); });
+    bar.appendChild(close);
+    wrap.appendChild(bar);
+    wrap.appendChild(clone);
+    fichaViewer.appendChild(wrap);
+    fichaViewer.classList.add('show');
+    fichaViewer.setAttribute('aria-hidden', 'false');
+  }
+  document.getElementById('viewFichaBtn') && document.getElementById('viewFichaBtn').addEventListener('click', function () { openFichaViewer(state.character); });
+  fichaViewer && fichaViewer.addEventListener('click', function (e) { if (e.target === fichaViewer) { fichaViewer.classList.remove('show'); fichaViewer.setAttribute('aria-hidden', 'true'); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && fichaViewer && fichaViewer.classList.contains('show')) { fichaViewer.classList.remove('show'); fichaViewer.setAttribute('aria-hidden', 'true'); } });
+
+  /* Pantalla completa para editar */
+  const fullscreenBtn = document.getElementById('characterFullscreenBtn');
+  if (fullscreenBtn) fullscreenBtn.addEventListener('click', function () {
+    const on = document.body.classList.toggle('character-fullscreen');
+    fullscreenBtn.textContent = on ? '⛶ Salir de pantalla completa' : '⛶ A pantalla completa';
+    if (on) window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* Exportar con imagen real (PNG y JPG) */
+  function loadImage(src) { return new Promise(function (resolve, reject) { const img = new Image(); img.onload = function () { resolve(img); }; img.onerror = reject; img.src = src; }); }
+  function roundRect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+  function drawCover(ctx, img, x, y, w, h) { const ir = img.width / img.height, br = w / h; let sx = 0, sy = 0, sw = img.width, sh = img.height; if (ir > br) { sw = img.height * br; sx = (img.width - sw) / 2; } else { sh = img.width / br; sy = (img.height - sh) / 2; } ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h); }
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const words = String(text || '').split(' '); let line = ''; let lines = 0;
+    for (let n = 0; n < words.length; n++) { const test = line + words[n] + ' '; if (ctx.measureText(test).width > maxWidth && n > 0) { ctx.fillText(line, x, y); line = words[n] + ' '; y += lineHeight; lines++; if (maxLines && lines >= maxLines) { ctx.fillText('…', x, y - lineHeight); return y; } } else { line = test; } }
+    ctx.fillText(line, x, y); return y + lineHeight;
+  }
+  async function exportCharacterPoster(format) {
+    const character = state.character;
+    if (!character) { toast('Crea o guarda un personaje primero'); return; }
+    toast('Generando imagen…');
+    const W = 1000, PAD = 56;
+    const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+    ctx.font = '28px Segoe UI, Arial';
+    const hasImage = !!character.image;
+    let img = null; if (hasImage) { try { img = await loadImage(character.image); } catch (e) { img = null; } }
+    // Calculamos alto dinamico segun contenido
+    const infoPairs = [['Edad', character.age], ['Género', character.gender], ['Ocupación', character.occupation], ['Rol', character.role], ['Personalidad', character.personality]];
+    const detailSections = [['Descripción', character.description], ['Historia', character.story], ['Fortalezas', character.strengths], ['Objetivos', character.goals]].filter(function (s) { return s[1]; });
+    const bodyTop = 250;
+    const infoH = Math.ceil(infoPairs.length / 2) * 66 + 40;
+    const detailsH = detailSections.reduce(function (acc, s) { ctx.font = '24px Segoe UI'; const lines = Math.ceil(ctx.measureText(s[1]).width / (W - PAD * 2)) + 1; return acc + 44 + lines * 32; }, 24);
+    let H = bodyTop + (img ? Math.max(img.height > 0 ? 0 : 0, 0) : 0);
+    const portraitH = img ? Math.min(520, Math.max(320, img.height)) : 0;
+    const contentBottom = detailSections.length ? bodyTop + Math.max(infoH, portraitH) + detailsH + 60 : bodyTop + Math.max(infoH, portraitH) + 40;
+    H = Math.max(1200, contentBottom);
+    canvas.width = W; canvas.height = H;
+    // Fondo
+    ctx.fillStyle = character.background || '#dff3ff'; ctx.fillRect(0, 0, W, H);
+    const accent = character.accent || '#1768b4'; const textColor = character.text || '#18325f';
+    // Stickers
+    (character.stickers || []).forEach(function (st) { const d = typeof st === 'string' ? { s: st, x: 12, y: 12 } : st; ctx.font = '52px Segoe UI Emoji, Segoe UI'; ctx.fillText(d.s || '', (d.x ?? 12) / 100 * W, (d.y ?? 12) / 100 * H); });
+    // Cabecera
+    ctx.fillStyle = accent; ctx.font = 'bold 24px Segoe UI'; ctx.fillText(String(character.role || 'FICHA DE PERSONAJE').toUpperCase(), PAD, PAD + 30);
+    ctx.font = 'bold 60px Segoe UI'; ctx.fillStyle = textColor; ctx.fillText(character.name || 'Personaje sin nombre', PAD, PAD + 100);
+    if (character.nickname) { ctx.font = 'italic 26px Segoe UI'; ctx.fillStyle = accent; ctx.fillText('“' + character.nickname + '”', PAD, PAD + 140); }
+    // Cuerpo
+    let y = bodyTop;
+    if (img) { const pw = 340; ctx.save(); ctx.strokeStyle = accent; ctx.lineWidth = 8; ctx.fillStyle = 'rgba(255,255,255,.6)'; roundRect(ctx, PAD, y, pw, portraitH, 16); ctx.fill(); ctx.clip(); drawCover(ctx, img, PAD, y, pw, portraitH); ctx.restore(); ctx.strokeStyle = accent; ctx.lineWidth = 8; roundRect(ctx, PAD, y, pw, portraitH, 16); ctx.stroke(); }
+    const infoX = img ? PAD + 380 : PAD; const infoW = img ? (W - PAD - (PAD + 380)) : (W - PAD * 2);
+    ctx.font = '20px Segoe UI'; let iy = y + 24;
+    infoPairs.forEach(function (p) { if (!p[1]) return; ctx.fillStyle = accent; ctx.font = 'bold 18px Segoe UI'; ctx.fillText(p[0], infoX, iy); ctx.fillStyle = textColor; ctx.font = '24px Segoe UI'; ctx.fillText(String(p[1]).slice(0, 34), infoX, iy + 30); iy += 70; if (iy > y + portraitH - 40 && img) { return; } });
+    // Detalles
+    let dy = y + (img ? portraitH : infoH) + 46;
+    detailSections.forEach(function (s) { ctx.fillStyle = accent; ctx.font = 'bold 26px Segoe UI'; ctx.fillText(s[0], PAD, dy); dy += 34; ctx.fillStyle = textColor; ctx.font = '22px Segoe UI'; dy = wrapText(ctx, s[1], PAD, dy, W - PAD * 2, 30, 6) + 26; });
+    // Pie
+    ctx.fillStyle = accent; ctx.font = '18px Segoe UI'; ctx.fillText('TAICHI19C · Ficha de personaje', PAD, H - 30);
+    const link = document.createElement('a');
+    link.download = (character.name || 'ficha').replace(/\s+/g, '-').toLowerCase() + '.' + (format === 'jpg' ? 'jpg' : 'png');
+    link.href = format === 'jpg' ? canvas.toDataURL('image/jpeg', 0.92) : canvas.toDataURL('image/png');
+    link.click();
+    toast('Ficha descargada');
+  }
+  document.getElementById('downloadCharacter').addEventListener('click', function () { exportCharacterPoster('png'); });
+  const jpgBtn = document.getElementById('downloadCharacterJpg');
+  if (jpgBtn) jpgBtn.addEventListener('click', function () { exportCharacterPoster('jpg'); });
+  renderGalleryThumbs(); renderStickerActive();
+
 })();
