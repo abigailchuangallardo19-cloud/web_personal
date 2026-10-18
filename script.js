@@ -385,7 +385,7 @@
         (character.conflicts ? '<section class="ficha-detail"><h4>Conflictos</h4><p>' + escapeText(character.conflicts) + '</p></section>' : '') +
         (character.quotes ? '<section class="ficha-detail"><h4>Frases célebres</h4><p>' + escapeText(character.quotes) + '</p></section>' : '') +
       '</div>' +
-      (gallery.length ? '<section class="ficha-gallery"><h4>Galería</h4><div class="ficha-gallery-grid">' + gallery.map(function (src) { return '<img src="' + src + '" alt="Galería de ' + escapeText(character.name || 'personaje') + '">'; }).join('') + '</div></section>' : '');
+      (gallery.length ? '<section class="ficha-gallery"><h4>Galería</h4><div class="ficha-gallery-grid">' + gallery.map(function (src) { return '<img src="' + src + '" alt="Galería de ' + escapeText(character.name || 'personaje') + '">'; }).join('') + '</div></section>' : '')
   }
 
   let decoratingCharacterPoster = false;
