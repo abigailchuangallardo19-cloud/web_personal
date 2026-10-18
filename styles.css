@@ -935,3 +935,5 @@ body.character-fullscreen .character-preview-panel { position:static; max-width:
 @media (max-width:1000px){ .ficha-body { grid-template-columns:1fr; } .ficha-info-grid { grid-template-columns:1fr 1fr; } }
 @media (max-width:640px){ .ficha-info-grid { grid-template-columns:1fr; } .ficha-stat { grid-template-columns:90px 1fr 36px; } }
 
+
+.ficha-viewer-full{margin:0;max-width:100%;padding:clamp(18px,4vw,52px)}.ficha-viewer-bar div{display:flex;gap:8px}.ficha-viewer::-webkit-scrollbar{width:10px}.ficha-viewer::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:20px}

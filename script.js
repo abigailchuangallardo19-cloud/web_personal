@@ -860,24 +860,36 @@
   const fichaViewer = document.getElementById('fichaViewer');
   function openFichaViewer(character) {
     if (!character) { toast('Crea o guarda un personaje primero'); return; }
-    const clone = document.getElementById('characterPoster').cloneNode(true);
+    const poster = document.getElementById('characterPoster');
+    if (!poster) { return; }
+    const clone = poster.cloneNode(true);
     clone.id = 'fichaViewerPoster';
+    clone.classList.add('ficha-viewer-full');
     fichaViewer.innerHTML = '';
     const wrap = document.createElement('div');
     wrap.className = 'ficha-viewer-inner';
     const bar = document.createElement('div');
     bar.className = 'ficha-viewer-bar';
-    bar.innerHTML = '<strong>Ficha: ' + escapeText(character.name || 'Personaje') + '</strong>';
-    const close = document.createElement('button');
-    close.className = 'platform-btn platform-btn-light';
-    close.type = 'button'; close.textContent = '✕ Cerrar';
-    close.addEventListener('click', function () { fichaViewer.classList.remove('show'); fichaViewer.setAttribute('aria-hidden', 'true'); });
-    bar.appendChild(close);
+    bar.innerHTML = '<strong>Ficha: ' + escapeText(character.name || 'Personaje') + '</strong><div><button class="platform-btn platform-btn-light" id="fvEdit" type="button">Editar</button><button class="platform-btn platform-btn-light" id="fvClose" type="button">✕ Cerrar</button></div>';
     wrap.appendChild(bar);
     wrap.appendChild(clone);
     fichaViewer.appendChild(wrap);
     fichaViewer.classList.add('show');
     fichaViewer.setAttribute('aria-hidden', 'false');
+    setTimeout(function () {
+      const fvEdit = document.getElementById('fvEdit');
+      if (fvEdit) fvEdit.addEventListener('click', function () {
+        fichaViewer.classList.remove('show');
+        fichaViewer.setAttribute('aria-hidden', 'true');
+        const ch = state.characters.find(function (i) { return i.id === character.id; }) || character;
+        openCharacterEditor(ch, ch.template);
+      });
+      const fvClose = document.getElementById('fvClose');
+      if (fvClose) fvClose.addEventListener('click', function () {
+        fichaViewer.classList.remove('show');
+        fichaViewer.setAttribute('aria-hidden', 'true');
+      });
+    }, 0);
   }
   document.getElementById('viewFichaBtn') && document.getElementById('viewFichaBtn').addEventListener('click', function () { openFichaViewer(state.character); });
   fichaViewer && fichaViewer.addEventListener('click', function (e) { if (e.target === fichaViewer) { fichaViewer.classList.remove('show'); fichaViewer.setAttribute('aria-hidden', 'true'); } });
