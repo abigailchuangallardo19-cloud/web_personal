@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculum | Tais Abigail Chuan Gallardo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Comic Neue', 'Segoe UI', Arial, sans-serif; color: #1c2b45; background: #e9f2fb; padding: 28px 14px; line-height: 1.5; }
+    .cv { max-width: 820px; margin: 0 auto; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 20px 48px rgba(30,80,140,.18); }
+    .cv-head { background: linear-gradient(135deg, #1768b4, #4bb6ef); color: #fff; padding: 30px 34px; }
+    .cv-head h1 { font-size: 2rem; letter-spacing: .5px; }
+    .cv-head h2 { font-size: 1.05rem; font-weight: 400; opacity: .95; margin-top: 4px; }
+    .cv-contact { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: .9rem; }
+    .cv-contact a { color: #fff; text-decoration: none; }
+    .cv-body { padding: 26px 34px 34px; }
+    .cv-section { margin-bottom: 22px; }
+    .cv-section h3 { color: #1768b4; font-size: 1.05rem; text-transform: uppercase; letter-spacing: .08em; border-bottom: 2px solid #dbeafe; padding-bottom: 6px; margin-bottom: 12px; }
+    .cv-item { margin-bottom: 12px; }
+    .cv-item strong { display: block; color: #12294a; }
+    .cv-item em { color: #64748b; font-style: normal; font-size: .86rem; }
+    .cv-item p { color: #33465f; font-size: .94rem; }
+    .cv-list { list-style: none; }
+    .cv-item-list { position: relative; padding-left: 18px; margin-bottom: 6px; }
+    .cv-item::before, .cv-item-list::before { content: ''; }
+    ul.plain { list-style: none; }
+    ul.dots { padding-left: 20px; }
+    .skills-mini { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cv-chip { background: #eaf4ff; color: #1768b4; border: 1px solid #c9e3ff; border-radius: 999px; padding: 4px 12px; font-size: .82rem; font-weight: 700; }
+    .cv-tools { max-width: 820px; margin: 0 auto 16px; display: flex; gap: 10px; justify-content: flex-end; }
+    .cv-btn { border: none; border-radius: 10px; padding: 10px 16px; font-weight: 700; font-family: inherit; cursor: pointer; background: #1768b4; color: #fff; text-decoration: none; }
+    .cv-btn.ghost { background: #fff; color: #1768b4; border: 2px solid #1768b4; }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .cv { box-shadow: none; border-radius: 0; max-width: none; }
+      .cv-tools { display: none; }
+      .cv-section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cv-tools">
+    <button class="cv-btn" onclick="window.print()">🖨️ Guardar como PDF</button>
+    <a class="cv-btn ghost" href="index.html">← Volver a la web</a>
+  </div>
+
+  <article class="cv">
+    <header class="cv-head">
+      <h1>Tais Abigail Chuan Gallardo</h1>
+      <h2>TAICHI19C · Diseño, programación y creatividad</h2>
+      <div class="cv-contact">
+        <a href="mailto:abigailchuangallardo19@gmail.com">✉️ abigailchuangallardo19@gmail.com</a>
+        <a href="https://instagram.com/taichi19c" target="_blank" rel="noopener">📷 @taichi19c</a>
+        <a href="https://github.com/abigailchuangallardo19-cloud" target="_blank" rel="noopener">💻 GitHub</a>
+        <span>📍 Paiján, La Libertad · Perú</span>
+      </div>
+    </header>
+
+    <div class="cv-body">
+      <section class="cv-section">
+        <h3>Perfil</h3>
+        <p>Estudiante apasionada por la tecnología, el diseño y el aprendizaje creativo. Combino lo visual con lo funcional para crear proyectos con identidad propia, energía juvenil y atención al detalle.</p>
+      </section>
+
+      <section class="cv-section">
+        <h3>Formación</h3>
+        <div class="cv-item">
+          <strong>IESTP Paiján</strong>
+          <span>Estudios superiores en tecnología · Actualidad</span>
+        </div>
+      </section>
+
+      <section class="cv-section">
+        <h3>Habilidades</h3>
+        <div class="cv-item"><strong>HTML &amp; CSS · 85%</strong></div>
+        <div class="cv-item"><strong>JavaScript · 70%</strong></div>
+        <div class="cv-item"><strong>Diseño de interfaces · 80%</strong></div>
+        <div class="cv-item"><strong>Creatividad con IA · 75%</strong></div>
+        <div class="cv-item"><strong>Canva y diseño gráfico · 90%</strong></div>
+      </section>
+
+      <section class="cv-section">
+        <h3>Proyectos y logros</h3>
+        <ul class="cv-list">
+          <li class="cv-item"><strong>Mi portafolio en línea</strong><span>Diseñé y publiqué mi propia página web personal.</span></li>
+          <li class="cv-item"><strong>Ferias de ciencia y tecnología</strong><span>Participación en ferias del instituto presentando ideas creativas.</span></li>
+          <li class="cv-item"><strong>Creatividad con IA</strong><span>Exploración de herramientas de inteligencia artificial para idear y diseñar.</span></li>
+        </ul>
+      </section>
+
+      <section class="cv-section">
+        <h3>Fortalezas</h3>
+        <div class="cv-contact" style="color:#1c2b45;">
+          <span>· Trabajo en equipo</span>
+          <span>· Aprendizaje continuo</span>
+          <span>· Resolución de problemas</span>
+          <span>· Atención al detalle</span>
+        </div>
+      </section>
+    </div>
+  </article>
+</body>
+</html>

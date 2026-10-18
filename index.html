@@ -5,6 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portafolio | TAICHI19C</title>
+  <meta name="description" content="Portafolio de Tais Abigail Chuan Gallardo (TAICHI19C): diseño, programación, IA y creatividad con estilo kawaii.">
+  <meta name="author" content="Tais Abigail Chuan Gallardo">
+  <meta name="theme-color" content="#123d8f">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Portafolio | TAICHI19C">
+  <meta property="og:description" content="Diseño, programación, IA y creatividad. El universo digital de Tais Abigail Chuan Gallardo.">
+  <meta property="og:image" content="https://abigailchuangallardo19-cloud.github.io/web_personal/images/hero.jpg">
+  <meta property="og:url" content="https://abigailchuangallardo19-cloud.github.io/web_personal/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Portafolio | TAICHI19C">
+  <meta name="twitter:description" content="Diseño, programación, IA y creatividad. El universo digital de Tais Abigail Chuan Gallardo.">
+  <meta name="twitter:image" content="https://abigailchuangallardo19-cloud.github.io/web_personal/images/hero.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123d8f'/%3E%3Ctext x='50%25' y='72%25' font-size='19' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23ffffff'%3ETA%3C/text%3E%3C/svg%3E">
@@ -12,12 +24,21 @@
 
 </head>
 <body>
+  <div class="clouds-layer" id="cloudsLayer" aria-hidden="true">
+    <span class="float-cloud c1"></span>
+    <span class="float-cloud c2"></span>
+    <span class="float-cloud c3"></span>
+    <span class="float-cloud c4"></span>
+    <span class="float-cloud c5"></span>
+    <span class="float-cloud c6"></span>
+  </div>
   <header class="topbar">
       <a class="brand-mark" href="#/inicio">☁️ TAICHI19C</a>
     <nav class="nav-links">
       <a href="#/inicio">Inicio</a>
-      <button class="explore-trigger" id="exploreTrigger" type="button" aria-expanded="false">Explorar⌄</button>
       <a href="#/sobre-mi">Sobre mí</a>
+      <a href="#/habilidades">Habilidades</a>
+      <button class="explore-trigger" id="exploreTrigger" type="button" aria-expanded="false">Explorar⌄</button>
       <a href="#/contacto">Contacto</a>
       <button class="topbar-icon" id="topThemeBtn" type="button" aria-label="Cambiar tema">🌙</button>
       <button class="topbar-icon" id="topSettingsBtn" type="button" aria-label="Abrir configuración">⚙️</button>
@@ -163,6 +184,7 @@
         <div class="btn-row">
           <a class="btn" href="#/proyectos">Ver proyectos</a>
           <a class="btn" href="#/explorar">Explorar</a>
+          <a class="btn btn-ghost" href="cv.pdf" download>📄 Descargar CV</a>
         </div>
         <div class="chip-row">
           <span class="chip">Diseño</span>
@@ -250,6 +272,90 @@
       </div>
     </section>
 
+    <section class="section" id="skills" data-edit-type="skills">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="pixel-title">Habilidades</h2>
+          <span class="chip">⚡ Lo que sé hacer</span>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-top"><strong>HTML &amp; CSS</strong><span>85%</span></div>
+            <div class="skill-bar"><i style="width:85%"></i></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-top"><strong>JavaScript</strong><span>70%</span></div>
+            <div class="skill-bar"><i style="width:70%"></i></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-top"><strong>Diseño UI / visual</strong><span>80%</span></div>
+            <div class="skill-bar"><i style="width:80%"></i></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-top"><strong>Creatividad con IA</strong><span>75%</span></div>
+            <div class="skill-bar"><i style="width:75%"></i></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-top"><strong>Canva &amp; diseño gráfico</strong><span>90%</span></div>
+            <div class="skill-bar"><i style="width:90%"></i></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-top"><strong>Trabajo en equipo</strong><span>80%</span></div>
+            <div class="skill-bar"><i style="width:80%"></i></div>
+          </div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Pensamiento creativo</span>
+          <span class="chip">Resolución de problemas</span>
+          <span class="chip">Aprendizaje continuo</span>
+          <span class="chip">Atención al detalle</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="timeline" data-edit-type="timeline">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="pixel-title">Mi recorrido</h2>
+          <span class="chip">🧭 Estudios y logros</span>
+        </div>
+        <ol class="timeline">
+          <li class="timeline-item">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-content">
+              <span class="timeline-date">Actualidad</span>
+              <h3>IESTP Paiján</h3>
+              <p>Estudiante apasionada por la tecnología, el diseño y la programación. Formándome con creatividad y enfoque en proyectos reales.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-content">
+              <span class="timeline-date">Ferias</span>
+              <h3>Ferias de ciencia y tecnología</h3>
+              <p>Participación en ferias escolares presentando ideas y proyectos creativos del instituto.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-content">
+              <span class="timeline-date">Proyectos</span>
+              <h3>Creatividad con IA</h3>
+              <p>Exploración de herramientas de inteligencia artificial para idear, diseñar y mejorar procesos creativos.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-content">
+              <span class="timeline-date">Logro</span>
+              <h3>Mi portafolio en línea</h3>
+              <p>Diseñé y publiqué mi propia página web personal, logrando unir lo visual con lo funcional.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <section class="section" id="contact" data-edit-type="contact">
       <div class="section-card">
         <div class="section-head">
@@ -257,17 +363,17 @@
           <span class="chip">📬 Siempre abierta a conectar</span>
         </div>
         <div class="contact-grid">
-          <a class="social-card" id="linkInstagram" href="#">
+          <a class="social-card" id="linkInstagram" href="https://instagram.com/taichi19c" target="_blank" rel="noopener">
             <strong>Instagram</strong>
             <span>@taichi19c</span>
           </a>
-          <a class="social-card" id="linkGitHub" href="#">
+          <a class="social-card" id="linkGitHub" href="https://github.com/abigailchuangallardo19-cloud" target="_blank" rel="noopener">
             <strong>GitHub</strong>
             <span>Mis proyectos</span>
           </a>
-          <a class="social-card" id="linkEmail" href="mailto:taichi19c@example.com">
+          <a class="social-card" id="linkEmail" href="mailto:abigailchuangallardo19@gmail.com">
             <strong>Correo</strong>
-            <span>taichi19c@example.com</span>
+            <span>abigailchuangallardo19@gmail.com</span>
           </a>
         </div>
       </div>
@@ -279,6 +385,7 @@
       <h4>Opciones de visual</h4>
       <div class="control-row"><span>Partículas</span><label><input type="checkbox" id="optParticles" checked></label></div>
       <div class="control-row"><span>Parallax</span><label><input type="checkbox" id="optParallax" checked></label></div>
+      <div class="control-row"><span>Nubes</span><label><input type="checkbox" id="optClouds" checked></label></div>
       <div class="control-row"><span>Tilt tarjetas</span><label><input type="checkbox" id="optTilt" checked></label></div>
       <div class="control-row"><span>Scanlines</span><label><input type="checkbox" id="optScanlines"></label></div>
       <div class="control-row"><span>Neón</span><label><input type="checkbox" id="optNeon" checked></label></div>
@@ -357,8 +464,11 @@
     <nav class="footer-links">
       <a href="#/inicio">Inicio</a>
       <a href="#/sobre-mi">Sobre mí</a>
+      <a href="#/habilidades">Habilidades</a>
+      <a href="#/trayectoria">Mi recorrido</a>
       <a href="#/proyectos">Proyectos</a>
       <a href="#/contacto">Contacto</a>
+      <a href="cv.pdf" download>Descargar CV</a>
     </nav>
   </footer>
 

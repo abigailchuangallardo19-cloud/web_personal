@@ -46,6 +46,17 @@
     }
   });
 
+  const optClouds = document.getElementById('optClouds');
+  if (optClouds) {
+    const cloudsOff = localStorage.getItem('taichi_clouds') === 'off';
+    optClouds.checked = !cloudsOff;
+    document.body.classList.toggle('clouds-off', cloudsOff);
+    optClouds.addEventListener('change', () => {
+      document.body.classList.toggle('clouds-off', !optClouds.checked);
+      localStorage.setItem('taichi_clouds', optClouds.checked ? 'on' : 'off');
+    });
+  }
+
   const images = [
     'images/hero.jpg', 'images/about.jpg', 'images/studio.jpg', 'images/project_portfolio.jpg', 'images/project_portfolio_1.jpg', 'images/project_portfolio_2.jpg',
     'images/project_ui.jpg', 'images/project_ui_1.jpg', 'images/project_ui_2.jpg', 'images/project_ui_3.jpg', 'images/project_ui_4.jpg', 'images/project_ui_5.jpg',
@@ -250,11 +261,12 @@
     document.getElementById('exploreMenu')?.setAttribute('aria-hidden', 'true');
     if (updateHash && window.location.hash !== `#/${normalized}`) window.location.hash = `#/${normalized}`;
     document.querySelectorAll('[data-route-link]').forEach(link => link.classList.toggle('current', link.dataset.routeLink === normalized));
-    document.body.classList.remove('route-home', 'route-about', 'route-contact', 'route-explore', 'route-workspace', 'route-module');
+    document.body.classList.remove('route-home', 'route-about', 'route-skills', 'route-timeline', 'route-contact', 'route-explore', 'route-workspace', 'route-module');
     document.getElementById('home').style.removeProperty('display');
     document.getElementById('exploreView').style.removeProperty('display');
-    if (normalized === 'inicio' || normalized === 'sobre-mi' || normalized === 'contacto') {
-      document.body.classList.add(normalized === 'inicio' ? 'route-home' : normalized === 'sobre-mi' ? 'route-about' : 'route-contact');
+    const pageRoutes = { inicio:'route-home', 'sobre-mi':'route-about', habilidades:'route-skills', trayectoria:'route-timeline', contacto:'route-contact' };
+    if (pageRoutes[normalized]) {
+      document.body.classList.add(pageRoutes[normalized]);
       document.querySelectorAll('[data-view-panel]').forEach(panel => panel.classList.remove('active'));
       if (normalized === 'inicio') document.getElementById('home').style.display = 'grid';
       window.scrollTo(0, 0);
@@ -446,6 +458,8 @@
   document.getElementById('projectSearch').addEventListener('keydown', event => event.stopPropagation());
   renderVisualModules();
   window.addEventListener('hashchange', () => routeTo(window.location.hash, false));
+  const footerYear = document.getElementById('footerYear');
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
   setTheme(localStorage.getItem('taichi_theme') === 'dark'); renderAll(); routeTo(window.location.hash || '#inicio', false);
 })();
 
