@@ -975,7 +975,7 @@
       if (!btn) return;
       const tab = btn.dataset.tab;
       characterTabs.querySelectorAll('.character-tab').forEach(function (b) { b.classList.toggle('active', b === btn); });
-      document.querySelectorAll('.character-tab-panel').forEach(function (panel) { panel.classList.toggle('active', panel.dataset.tabPanel === tab); });
+      document.querySelectorAll('.character-tab-panel').forEach(function (panel) { panel.classList.toggle('active', ((panel.dataset.tabPanel||panel.dataset.tabpanel||panel.dataset[	ab-panel]) === tab)); });
     });
   }
   /* Actualizar valor visible de los sliders de stats */

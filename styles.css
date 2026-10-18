@@ -1009,3 +1009,9 @@ body.character-fullscreen .character-preview-panel { position:static; max-width:
 /* Ajuste: el form con pestañas ya no necesita altura fija recortada */
 .character-editor-layout .character-editor { max-height:78vh; }
 @media (max-width:640px){ .character-tab { min-width:calc(50% - 8px); } }
+
+/* Fix: hacer pestañas siempre clicables y arriba */
+.character-tabs { position:relative; z-index:5; pointer-events:auto; }
+.character-tab { pointer-events:auto; }
+.character-tab-body { position:relative; z-index:1; }
+.character-editor-layout .character-editor { position:relative; overflow:auto; max-height:82vh; }
