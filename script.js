@@ -362,8 +362,9 @@
     const gallery = Array.isArray(character.gallery) ? character.gallery : [];
     const stats = [['Fuerza', character.statStrength], ['Inteligencia', character.statIntelligence], ['Velocidad', character.statSpeed], ['Carisma', character.statCharisma]].filter(function (p) { return p[1] !== undefined && p[1] !== null && p[1] !== ''; });
     const infoPairs = [['Edad', character.age], ['Género', character.gender], ['Nacionalidad', character.nationality], ['Ocupación', character.occupation], ['Rol', character.role], ['Personalidad', character.personality], ['Cabello', character.hair], ['Ojos', character.eyes], ['Vestimenta', character.outfit], ['Accesorios', character.accessories]];
+    const decor = (character.decorationStars || character.decorationHearts || character.decorationGrid) ? '<div class="ficha-decor' + (character.decorationGrid ? ' with-grid' : '') + '">' + (character.decorationStars ? '<span class="d-star">✦</span><span class="d-star s2">✦</span><span class="d-star s3">✦</span>' : '') + (character.decorationHearts ? '<span class="d-heart">💖</span><span class="d-heart h2">💖</span>' : '') + '</div>' : '';
     const stickerHtml = stickers.length ? '<div class="ficha-stickers">' + stickers.map(function (st) { const d = typeof st === 'string' ? { s: st, x: 12, y: 12 } : st; return '<span style="left:' + (d.x ?? 12) + '%;top:' + (d.y ?? 12) + '%">' + escapeText(d.s || '') + '</span>'; }).join('') + '</div>' : '';
-    poster.innerHTML = stickerHtml +
+    poster.innerHTML = decor + stickerHtml +
       '<header class="ficha-header"><span class="ficha-kicker">' + escapeText(character.role || 'FICHA DE PERSONAJE') + '</span><h2 class="ficha-name">' + escapeText(character.name || 'Personaje sin nombre') + '</h2>' + (character.nickname ? '<p class="ficha-nickname">“' + escapeText(character.nickname) + '”</p>' : '') + '</header>' +
       '<div class="ficha-body">' +
         '<aside class="ficha-portrait-col"><div class="ficha-portrait shape-' + shape + '">' + (character.image ? '<img src="' + character.image + '" alt="Imagen de ' + escapeText(character.name || 'personaje') + '">' : '<div class="ficha-placeholder">🎭<small>Agrega una imagen</small></div>') + '</div>' +
@@ -380,6 +381,9 @@
         (character.weaknesses ? '<section class="ficha-detail"><h4>Debilidades</h4><p>' + escapeText(character.weaknesses) + '</p></section>' : '') +
         (character.goals ? '<section class="ficha-detail"><h4>Objetivos</h4><p>' + escapeText(character.goals) + '</p></section>' : '') +
         (character.relations ? '<section class="ficha-detail"><h4>Relaciones</h4><p>' + escapeText(character.relations) + '</p></section>' : '') +
+        (character.interests ? '<section class="ficha-detail"><h4>Intereses</h4><p>' + escapeText(character.interests) + '</p></section>' : '') +
+        (character.conflicts ? '<section class="ficha-detail"><h4>Conflictos</h4><p>' + escapeText(character.conflicts) + '</p></section>' : '') +
+        (character.quotes ? '<section class="ficha-detail"><h4>Frases célebres</h4><p>' + escapeText(character.quotes) + '</p></section>' : '') +
       '</div>' +
       (gallery.length ? '<section class="ficha-gallery"><h4>Galería</h4><div class="ficha-gallery-grid">' + gallery.map(function (src) { return '<img src="' + src + '" alt="Galería de ' + escapeText(character.name || 'personaje') + '">'; }).join('') + '</div></section>' : '');
   }
@@ -962,5 +966,22 @@
   const jpgBtn = document.getElementById('downloadCharacterJpg');
   if (jpgBtn) jpgBtn.addEventListener('click', function () { exportCharacterPoster('jpg'); });
   renderGalleryThumbs(); renderStickerActive();
+
+  /* Pestañas (opciones) del formulario de personaje */
+  const characterTabs = document.querySelector('.character-tabs');
+  if (characterTabs) {
+    characterTabs.addEventListener('click', function (e) {
+      const btn = e.target.closest('.character-tab');
+      if (!btn) return;
+      const tab = btn.dataset.tab;
+      characterTabs.querySelectorAll('.character-tab').forEach(function (b) { b.classList.toggle('active', b === btn); });
+      document.querySelectorAll('.character-tab-panel').forEach(function (panel) { panel.classList.toggle('active', panel.dataset.tabPanel === tab); });
+    });
+  }
+  /* Actualizar valor visible de los sliders de stats */
+  document.querySelectorAll('.opt-range input[type="range"]').forEach(function (rng) {
+    const update = function () { const out = rng.parentElement.querySelector('output'); if (out) out.textContent = rng.value; };
+    rng.addEventListener('input', update); update();
+  });
 
 })();
