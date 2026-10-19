@@ -924,7 +924,7 @@ body.dark { --ficha-bg:#0f1624; --ficha-card:#16213a; --ficha-text:#e6ecff; --fi
 /* Pantalla completa y visor */
 body.character-fullscreen .character-editor-layout { grid-template-columns:1fr; }
 body.character-fullscreen .character-preview-panel { position:static; max-width:1100px; margin:0 auto; width:100%; }
-.ficha-viewer { position:fixed; inset:0; display:none; align-items:flex-start; justify-content:center; padding:clamp(12px,4vw,40px); background:rgba(5,10,20,.78); backdrop-filter:blur(6px); z-index:9999; overflow:auto; }
+.ficha-viewer { position:fixed; inset:0; display:none; align-items:flex-start; justify-content:center; padding:clamp(8px,2vw,16px); background:rgba(5,10,20,.78); backdrop-filter:blur(6px); z-index:9999; overflow:auto; }
 .ficha-viewer.show { display:flex; }
 .ficha-viewer-inner { width:min(1100px,100%); display:grid; gap:12px; animation: ficha-in .25s ease; }
 @keyframes ficha-in { from{transform:translateY(10px);opacity:0} to{transform:translateY(0);opacity:1} }
@@ -936,15 +936,15 @@ body.character-fullscreen .character-preview-panel { position:static; max-width:
 @media (max-width:640px){ .ficha-info-grid { grid-template-columns:1fr; } .ficha-stat { grid-template-columns:90px 1fr 36px; } }
 
 
-.ficha-viewer-full{margin:0;max-width:100%;padding:clamp(18px,4vw,52px)}.ficha-viewer-bar div{display:flex;gap:8px}.ficha-viewer::-webkit-scrollbar{width:10px}.ficha-viewer::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:20px}
+.ficha-viewer-full{margin:0;width:100%;max-width:100%;padding:clamp(14px,3vw,36px);box-sizing:border-box}.ficha-viewer-bar div{display:flex;gap:8px}.ficha-viewer::-webkit-scrollbar{width:10px}.ficha-viewer::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:20px}
 
 /* ==== FICHA CONTAINER QUERIES ==== */
 /* La ficha se acomoda segun su ANCHO REAL, no el de la pantalla */
 .ficha { container-type: inline-size; container-name: ficha; }
-@container ficha (max-width: 900px) {
+@container ficha (max-width: 980px) {
   .ficha-body { grid-template-columns: minmax(180px,.6fr) minmax(0,1.4fr); }
 }
-@container ficha (max-width: 760px) {
+@container ficha (max-width: 820px) {
   .ficha-body { grid-template-columns: 1fr; }
   .ficha-portrait { max-width:320px; margin:0 auto; }
   .ficha-info-grid { grid-template-columns:1fr 1fr; }
@@ -966,9 +966,9 @@ body.character-fullscreen .character-preview-panel { position:static; max-width:
 @media (max-width:1120px){ .character-editor-layout { grid-template-columns:1fr; } .character-preview-panel { position:static; } }
 
 /* Visor de ficha: amplio, cuadrado y bien espaciado */
-.ficha-viewer { padding:clamp(10px,3vw,34px); }
-.ficha-viewer-inner { width:min(1240px,100%); }
-.ficha-viewer-full { max-width:100%; padding:clamp(22px,4vw,60px); border-radius:26px; }
+.ficha-viewer { padding:clamp(8px,2vw,20px); }
+.ficha-viewer-inner { width:min(1280px,96vw); margin:0 auto; }
+.ficha-viewer-full { width:100%; max-width:100%; padding:clamp(16px,3vw,40px); border-radius:24px; box-sizing:border-box; }
 .ficha-viewer-full .ficha-body { gap:clamp(22px,4vw,44px); }
 .ficha-viewer-full .ficha-info-grid { gap:16px; }
 .ficha-viewer-full .ficha-details { gap:18px; }
