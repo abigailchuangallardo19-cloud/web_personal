@@ -965,10 +965,10 @@ body.character-fullscreen .character-preview-panel { position:static; max-width:
 .character-editor-layout { grid-template-columns:minmax(320px,.8fr) minmax(0,1.2fr); }
 @media (max-width:1120px){ .character-editor-layout { grid-template-columns:1fr; } .character-preview-panel { position:static; } }
 
-/* Visor de ficha: amplio, cuadrado y bien espaciado */
-.ficha-viewer { padding:clamp(8px,2vw,20px); }
-.ficha-viewer-inner { width:min(1480px,98vw); margin:0 auto; }
-.ficha-viewer-full { width:100%; max-width:100%; padding:clamp(10px,2vw,28px); border-radius:20px; box-sizing:border-box; }
+/* Visor de ficha: llena toda la pantalla, minimo margen */
+.ficha-viewer { padding:clamp(4px,0.8vw,10px); }
+.ficha-viewer-inner { width:calc(100vw - 8px); max-width:none; margin:0; }
+.ficha-viewer-full { width:100%; max-width:100%; padding:clamp(12px,2vw,30px); border-radius:18px; box-sizing:border-box; }
 .ficha-viewer-full .ficha-body { gap:clamp(22px,4vw,44px); }
 .ficha-viewer-full .ficha-info-grid { gap:16px; }
 .ficha-viewer-full .ficha-details { gap:18px; }
